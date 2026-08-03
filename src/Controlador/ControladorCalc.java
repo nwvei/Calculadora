@@ -16,7 +16,7 @@ import modelo.DivisionZeroException;
  */
 public class ControladorCalc {
     private double value;
-    private double resultado;
+    private String resultado;
     private String operacion;
      private FrmCalculadora vista;
     private calculadora modelo;
