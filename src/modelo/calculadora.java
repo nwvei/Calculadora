@@ -9,7 +9,7 @@ package modelo;
  * @author UTN
  */
 public class calculadora {
-        private double valor;
+    private double valor;
     private double resultado;
     private String operacion;
 
@@ -37,7 +37,7 @@ public class calculadora {
         this.operacion = operacion;
     }
     
-    public Calculadora(){
+    public calculadora(){
         reiniciar();
     }
     
