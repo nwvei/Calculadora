@@ -4,6 +4,8 @@
  */
 package VistaCalculadora;
 
+import Controlador.ControladorCalc;
+
 /**
  *
  * @author Adriel
@@ -11,7 +13,7 @@ package VistaCalculadora;
 public class FrmCalculadora extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmCalculadora.class.getName());
-    
+    private ControladorCalc control;
     private boolean operador = true; 
     private double valor; 
     private String operacion;
@@ -225,7 +227,9 @@ public class FrmCalculadora extends javax.swing.JFrame {
                 .addGap(41, 41, 41))
         );
 
+        Txt1.setBackground(new java.awt.Color(255, 255, 255));
         Txt1.setFont(new java.awt.Font("Elephant", 0, 24)); // NOI18N
+        Txt1.setForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -279,10 +283,7 @@ public class FrmCalculadora extends javax.swing.JFrame {
     }//GEN-LAST:event_Boton2ActionPerformed
     
     private void ACActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ACActionPerformed
-    Txt1.setText(""); 
-    valor = 0; 
-    operacion = ""; 
-    operador = true;
+    control.acPresionado();
     }//GEN-LAST:event_ACActionPerformed
 
     private void Boton0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton0ActionPerformed
@@ -361,10 +362,9 @@ public class FrmCalculadora extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BotonNegativoPositivoActionPerformed
     public void addDigit (String dig){
-    if (operador) { 
-        String text = Txt1.getText();
-        text += dig; Txt1.setText(text);
-        }
+    String text = Txt1.getText();
+    text += dig;
+    Txt1.setText(text);
     }
     public String getOperacion() { 
         return operacion; 
@@ -377,9 +377,6 @@ public class FrmCalculadora extends javax.swing.JFrame {
     }
     public void setTextoPantalla(String texto) {
         Txt1.setText(texto); 
-    }
-    public void mostrarResultado(String resultado) {
-        Txt1.setText(resultado); 
     }
     /**
      * @param args the command line arguments
@@ -430,4 +427,9 @@ public class FrmCalculadora extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
+
+    public void mostarResultado(String resultado) {
+       Txt1.setText(resultado); 
+    }
+
 }

@@ -43,7 +43,7 @@ public class ControladorCalc {
                 modelo.dividir();
                 }catch(ArithmeticException e){
                     modelo.reiniciar();
-                    vista.mostrarResultado("No se puede dividir entre 0");
+                    vista.mostarResultado("No se puede dividir entre 0");
                 }
             }
             default -> {
