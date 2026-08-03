@@ -11,13 +11,17 @@ package VistaCalculadora;
 public class FrmCalculadora extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmCalculadora.class.getName());
-
+    
+    private boolean operador = true; 
+    private double valor; 
+    private String operacion;
     /**
      * Creates new form FrmCalculadora
      */
     public FrmCalculadora() {
         initComponents();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -45,7 +49,7 @@ public class FrmCalculadora extends javax.swing.JFrame {
         Boton1 = new javax.swing.JButton();
         BotonPunto = new javax.swing.JButton();
         BotonIgual = new javax.swing.JButton();
-        BotonPorcentaje = new javax.swing.JButton();
+        BotonDivision = new javax.swing.JButton();
         BotonMultiplicar = new javax.swing.JButton();
         BotonEliminar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -55,18 +59,23 @@ public class FrmCalculadora extends javax.swing.JFrame {
 
         AC.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         AC.setText("AC");
+        AC.addActionListener(this::ACActionPerformed);
 
         Boton9.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         Boton9.setText("9");
+        Boton9.addActionListener(this::Boton9ActionPerformed);
 
         BotonNegativoPositivo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         BotonNegativoPositivo.setText("+/-");
+        BotonNegativoPositivo.addActionListener(this::BotonNegativoPositivoActionPerformed);
 
         Boton0.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         Boton0.setText("0");
+        Boton0.addActionListener(this::Boton0ActionPerformed);
 
         Boton6.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         Boton6.setText("6");
+        Boton6.addActionListener(this::Boton6ActionPerformed);
 
         Boton8.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         Boton8.setText("8");
@@ -74,9 +83,11 @@ public class FrmCalculadora extends javax.swing.JFrame {
 
         Boton5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         Boton5.setText("5");
+        Boton5.addActionListener(this::Boton5ActionPerformed);
 
         Boton3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         Boton3.setText("3");
+        Boton3.addActionListener(this::Boton3ActionPerformed);
 
         Boton2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         Boton2.setText("2");
@@ -84,30 +95,39 @@ public class FrmCalculadora extends javax.swing.JFrame {
 
         Boton4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         Boton4.setText("4");
+        Boton4.addActionListener(this::Boton4ActionPerformed);
 
         Boton7.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         Boton7.setText("7");
+        Boton7.addActionListener(this::Boton7ActionPerformed);
 
         BotonResta.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         BotonResta.setText("-");
+        BotonResta.addActionListener(this::BotonRestaActionPerformed);
 
         BotonSuma.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         BotonSuma.setText("+");
+        BotonSuma.addActionListener(this::BotonSumaActionPerformed);
 
         Boton1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         Boton1.setText("1");
+        Boton1.addActionListener(this::Boton1ActionPerformed);
 
         BotonPunto.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         BotonPunto.setText(".");
+        BotonPunto.addActionListener(this::BotonPuntoActionPerformed);
 
         BotonIgual.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         BotonIgual.setText("=");
+        BotonIgual.addActionListener(this::BotonIgualActionPerformed);
 
-        BotonPorcentaje.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        BotonPorcentaje.setText("%");
+        BotonDivision.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        BotonDivision.setText("/");
+        BotonDivision.addActionListener(this::BotonDivisionActionPerformed);
 
         BotonMultiplicar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         BotonMultiplicar.setText("X");
+        BotonMultiplicar.addActionListener(this::BotonMultiplicarActionPerformed);
 
         BotonEliminar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         BotonEliminar.setText("<x]");
@@ -159,7 +179,7 @@ public class FrmCalculadora extends javax.swing.JFrame {
                                     .addComponent(Boton7, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(19, 19, 19)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(BotonPorcentaje, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                                    .addComponent(BotonDivision, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
                                     .addComponent(BotonMultiplicar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(19, 19, 19)
@@ -173,7 +193,7 @@ public class FrmCalculadora extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BotonPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BotonDivision, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(AC, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(BotonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,11 +205,12 @@ public class FrmCalculadora extends javax.swing.JFrame {
                     .addComponent(Boton7, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BotonMultiplicar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Boton6, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Boton5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(BotonResta, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Boton4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(Boton6, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Boton5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Boton4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Boton3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -210,8 +231,8 @@ public class FrmCalculadora extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(132, 132, 132)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(Txt1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -242,17 +263,124 @@ public class FrmCalculadora extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarActionPerformed
-        // TODO add your handling code here:
+    String text = Txt1.getText();
+    if (!text.isEmpty()) {
+        text = text.substring(0, text.length() - 1);
+        Txt1.setText(text); 
+        }
     }//GEN-LAST:event_BotonEliminarActionPerformed
 
     private void Boton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton8ActionPerformed
-        // TODO add your handling code here:
+     addDigit("8");
     }//GEN-LAST:event_Boton8ActionPerformed
 
     private void Boton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton2ActionPerformed
-        // TODO add your handling code here:
+    addDigit("2");
     }//GEN-LAST:event_Boton2ActionPerformed
+    
+    private void ACActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ACActionPerformed
+    Txt1.setText(""); 
+    valor = 0; 
+    operacion = ""; 
+    operador = true;
+    }//GEN-LAST:event_ACActionPerformed
 
+    private void Boton0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton0ActionPerformed
+        addDigit("0");
+    }//GEN-LAST:event_Boton0ActionPerformed
+
+    private void Boton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton1ActionPerformed
+    addDigit("1");
+    }//GEN-LAST:event_Boton1ActionPerformed
+
+    private void Boton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton3ActionPerformed
+     addDigit("3");
+    }//GEN-LAST:event_Boton3ActionPerformed
+
+    private void Boton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton4ActionPerformed
+     addDigit("4");
+    }//GEN-LAST:event_Boton4ActionPerformed
+
+    private void Boton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton5ActionPerformed
+     addDigit("5");
+    }//GEN-LAST:event_Boton5ActionPerformed
+
+    private void Boton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton6ActionPerformed
+     addDigit("6");
+    }//GEN-LAST:event_Boton6ActionPerformed
+
+    private void Boton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton7ActionPerformed
+     addDigit("7");
+    }//GEN-LAST:event_Boton7ActionPerformed
+
+    private void Boton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton9ActionPerformed
+     addDigit("9");
+    }//GEN-LAST:event_Boton9ActionPerformed
+
+    private void BotonPuntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonPuntoActionPerformed
+    addDigit(".");
+    }//GEN-LAST:event_BotonPuntoActionPerformed
+
+    private void BotonSumaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonSumaActionPerformed
+    operador = true;
+    String text = Txt1.getText();
+    valor = Double.parseDouble(text); 
+    operacion = "+";
+    }//GEN-LAST:event_BotonSumaActionPerformed
+
+    private void BotonRestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRestaActionPerformed
+    operador = true; 
+    String text = Txt1.getText(); 
+    valor = Double.parseDouble(text); 
+    operacion = "-";
+    }//GEN-LAST:event_BotonRestaActionPerformed
+
+    private void BotonMultiplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMultiplicarActionPerformed
+    operador = true; 
+    String text = Txt1.getText(); 
+    valor = Double.parseDouble(text); 
+    operacion = "*";
+    }//GEN-LAST:event_BotonMultiplicarActionPerformed
+
+    private void BotonDivisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonDivisionActionPerformed
+    operador = true; 
+    String text = Txt1.getText(); 
+    valor = Double.parseDouble(text); 
+    operacion = "/";
+    }//GEN-LAST:event_BotonDivisionActionPerformed
+
+    private void BotonIgualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonIgualActionPerformed
+    operador = false;
+    }//GEN-LAST:event_BotonIgualActionPerformed
+
+    private void BotonNegativoPositivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonNegativoPositivoActionPerformed
+    String text = Txt1.getText(); 
+    if (!text.isEmpty()) { 
+        double numero = Double.parseDouble(text);
+        numero = numero * -1; Txt1.setText(String.valueOf(numero));
+        }
+    }//GEN-LAST:event_BotonNegativoPositivoActionPerformed
+    public void addDigit (String dig){
+    if (operador) { 
+        String text = Txt1.getText();
+        text += dig; Txt1.setText(text);
+        }
+    }
+    public String getOperacion() { 
+        return operacion; 
+    }
+    public double getValor() { 
+        return valor; 
+    }
+    public String getTextoPantalla() {
+        return Txt1.getText();
+    }
+    public void setTextoPantalla(String texto) {
+        Txt1.setText(texto); 
+    }
+    public void mostrarResultado(String resultado) {
+        Txt1.setText(resultado); 
+    }
     /**
      * @param args the command line arguments
      */
@@ -290,11 +418,11 @@ public class FrmCalculadora extends javax.swing.JFrame {
     private javax.swing.JButton Boton7;
     private javax.swing.JButton Boton8;
     private javax.swing.JButton Boton9;
+    private javax.swing.JButton BotonDivision;
     private javax.swing.JButton BotonEliminar;
     private javax.swing.JButton BotonIgual;
     private javax.swing.JButton BotonMultiplicar;
     private javax.swing.JButton BotonNegativoPositivo;
-    private javax.swing.JButton BotonPorcentaje;
     private javax.swing.JButton BotonPunto;
     private javax.swing.JButton BotonResta;
     private javax.swing.JButton BotonSuma;
