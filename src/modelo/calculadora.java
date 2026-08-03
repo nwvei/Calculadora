@@ -45,7 +45,7 @@ public class calculadora {
         resultado+= valor; 
     }
     
-    public void rstar(){
+    public void restar(){
         resultado-= valor; 
     }
     
