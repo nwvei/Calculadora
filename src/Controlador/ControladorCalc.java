@@ -25,33 +25,23 @@ public class ControladorCalc {
         this.vista = vista;
         this.modelo = new calculadora();
     }
-    public void calcular(double valor,String operador) throws InvalidValueException, DivisionZeroException{
-        modelo.setValor(valor);
-        switch(modelo.getOperacion()){
-            case "+" -> {
-                modelo.sumar();
-                
-            }
-            case"-" -> {
-                modelo.restar();
-            }
-            case "*" -> {
-                modelo.multiplicar();
-            }
-            case "/" -> {
-                try{
-                modelo.dividir();
-                }catch(ArithmeticException e){
-                    modelo.reiniciar();
-                    vista.mostarResultado("No se puede dividir entre 0");
-                }
-            }
-            default -> {
-                modelo.setOperacion(operador);
-                vista.mostarResultado(String.valueOf(modelo.getResultado()));
-                        }
-}
+    public void calcular(double valor, String operador) throws InvalidValueException {
+    modelo.setValor(valor);
+    try {
+        switch (modelo.getOperacion()) {
+            case "+" -> modelo.sumar();
+            case "-" -> modelo.restar();
+            case "*" -> modelo.multiplicar();
+            case "/" -> modelo.dividir();
+        }
+    } catch (DivisionZeroException e) {
+        modelo.reiniciar();
+        vista.mostarResultado("No se puede dividir entre 0");
+        return;
     }
+    modelo.setOperacion(operador);
+    vista.mostarResultado(String.valueOf(modelo.getResultado()));
+}
     public void acPresionado() {
     modelo.reiniciar();
     vista.setTextoPantalla("0");

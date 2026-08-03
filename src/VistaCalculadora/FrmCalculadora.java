@@ -5,6 +5,7 @@
 package VistaCalculadora;
 
 import Controlador.ControladorCalc;
+import modelo.InvalidValueException;
 
 /**
  *
@@ -14,7 +15,7 @@ public class FrmCalculadora extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmCalculadora.class.getName());
     private ControladorCalc control;
-    private boolean operador = true; 
+    private boolean operador; 
     private double valor; 
     private String operacion;
     /**
@@ -22,6 +23,7 @@ public class FrmCalculadora extends javax.swing.JFrame {
      */
     public FrmCalculadora() {
         initComponents();
+        control = new ControladorCalc(this);
     }
     
 
@@ -323,35 +325,48 @@ public class FrmCalculadora extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonPuntoActionPerformed
 
     private void BotonSumaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonSumaActionPerformed
-    operador = true;
-    String text = Txt1.getText();
-    valor = Double.parseDouble(text); 
-    operacion = "+";
+    try {
+        double numero = Double.parseDouble(Txt1.getText());
+        control.calcular(numero, "+");
+    } catch (InvalidValueException e) {
+        Txt1.setText("Error");
+    }
     }//GEN-LAST:event_BotonSumaActionPerformed
 
     private void BotonRestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRestaActionPerformed
-    operador = true; 
-    String text = Txt1.getText(); 
-    valor = Double.parseDouble(text); 
-    operacion = "-";
+      try {
+        double numero = Double.parseDouble(Txt1.getText());
+        control.calcular(numero, "-");
+    } catch (InvalidValueException e) {
+        Txt1.setText("Error");
+    }
     }//GEN-LAST:event_BotonRestaActionPerformed
 
     private void BotonMultiplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonMultiplicarActionPerformed
-    operador = true; 
-    String text = Txt1.getText(); 
-    valor = Double.parseDouble(text); 
-    operacion = "*";
+       try {
+        double numero = Double.parseDouble(Txt1.getText());
+        control.calcular(numero, "*");
+    } catch (InvalidValueException e) {
+        Txt1.setText("Error");
+    }
     }//GEN-LAST:event_BotonMultiplicarActionPerformed
 
     private void BotonDivisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonDivisionActionPerformed
-    operador = true; 
-    String text = Txt1.getText(); 
-    valor = Double.parseDouble(text); 
-    operacion = "/";
+     try {
+        double numero = Double.parseDouble(Txt1.getText());
+        control.calcular(numero, "/");
+    } catch (InvalidValueException e) {
+        Txt1.setText("Error");
+    }
     }//GEN-LAST:event_BotonDivisionActionPerformed
 
     private void BotonIgualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonIgualActionPerformed
-    operador = false;
+      try {
+        double numero = Double.parseDouble(Txt1.getText());
+        control.calcular(numero, "+");
+    } catch (InvalidValueException e) {
+        Txt1.setText("Error");
+    }
     }//GEN-LAST:event_BotonIgualActionPerformed
 
     private void BotonNegativoPositivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonNegativoPositivoActionPerformed
@@ -361,11 +376,15 @@ public class FrmCalculadora extends javax.swing.JFrame {
         numero = numero * -1; Txt1.setText(String.valueOf(numero));
         }
     }//GEN-LAST:event_BotonNegativoPositivoActionPerformed
-    public void addDigit (String dig){
+   public void addDigit(String dig) {
+    if (limpiarPantalla) {
+        Txt1.setText("");
+        limpiarPantalla = false;
+    }
     String text = Txt1.getText();
     text += dig;
     Txt1.setText(text);
-    }
+}
     public String getOperacion() { 
         return operacion; 
     }
@@ -376,8 +395,10 @@ public class FrmCalculadora extends javax.swing.JFrame {
         return Txt1.getText();
     }
     public void setTextoPantalla(String texto) {
-        Txt1.setText(texto); 
+        Txt1.setText(texto);
+        limpiarPantalla = true;
     }
+    private boolean limpiarPantalla = false;
     /**
      * @param args the command line arguments
      */
@@ -429,7 +450,8 @@ public class FrmCalculadora extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void mostarResultado(String resultado) {
-       Txt1.setText(resultado); 
-    }
+    Txt1.setText(resultado);
+    limpiarPantalla = true;
+}
 
 }
