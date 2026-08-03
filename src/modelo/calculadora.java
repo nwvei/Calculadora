@@ -78,6 +78,9 @@ public class calculadora {
         if (Double.isNaN(numero)) {
             throw new InvalidValueException();
         }  
+        if (Double.isInfinite(numero)) {
+        throw new InvalidValueException();
+        }
     }
    
 }
