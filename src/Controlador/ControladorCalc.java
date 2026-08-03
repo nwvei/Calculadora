@@ -39,11 +39,16 @@ public class ControladorCalc {
                 modelo.multiplicar();
             }
             case "/" -> {
+                try{
                 modelo.dividir();
+                }catch(ArithmeticException e){
+                    modelo.reiniciar();
+                    vista.mostrarResultado("No se puede dividir entre 0");
+                }
             }
             default -> {
                 modelo.setOperacion(operador);
-                vista.mostarResultado.ValueOf(modelo.getResultado());
+                vista.mostarResultado(String.valueOf(modelo.getResultado()));
                         }
 }
     }
