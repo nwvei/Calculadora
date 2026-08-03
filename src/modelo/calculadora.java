@@ -41,26 +41,43 @@ public class calculadora {
         reiniciar();
     }
     
-    public void sumar(){
+    public void sumar()throws InvalidValueException{
+        validarValor(valor);
+        validarValor(resultado);
         resultado+= valor; 
     }
     
-    public void restar(){
+    public void restar()throws InvalidValueException{
+        validarValor(valor);
+        validarValor(resultado);
         resultado-= valor; 
     }
     
-    public void multiplicar(){
+    public void multiplicar()throws InvalidValueException{
+        validarValor(valor);
+        validarValor(resultado);
         resultado*= valor; 
     }
     
-    public void dividir(){
-        resultado/= valor; 
+    public void dividir() throws InvalidValueException, DivisionZeroException {
+        validarValor(valor);
+        validarValor(resultado);
+        if (valor == 0) {
+            throw new DivisionZeroException();
+        }
+        resultado /= valor;
     }
     
     public void reiniciar(){
-                this.valor = 0;
+        this.valor = 0;
         this.resultado = 0;
         this.operacion = "+";
     }    
+    
+    private void validarValor(double numero) throws InvalidValueException {
+        if (Double.isNaN(numero)) {
+            throw new InvalidValueException();
+        }  
+    }
    
 }
